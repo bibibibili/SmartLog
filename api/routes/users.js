@@ -8,11 +8,9 @@ router.get('/', function (req, res, next) {
   console.log('hi')
   res.send('respond with a resource1')
 })
+
 router.post('/add', (req, res) => {
-  var user = new User({
-    userID: 1,
-    email: 'nana@sample.com'
-  })
+  var user = new User(req.body)
   user.save().then((user) => {
     res.send(user)
   }, (e) => {
@@ -20,7 +18,7 @@ router.post('/add', (req, res) => {
   })
 })
 
-router.get('/get/:userID', (req, res) => {
+router.get('/:userID', (req, res) => {
   var userID = req.params.userID
   User.findOne({ userID: userID }).then((user) => {
     res.send(user)
